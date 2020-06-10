@@ -1,0 +1,26 @@
+---
+# tasks file for postgres_repo
+- name: Install the PostgreSQL repository configuration.
+  dnf:
+    name: 'https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm'
+    state: present
+
+- name: Install python2-libs.
+  dnf:
+    name: python2-libs
+    state: present
+
+- name: disable AppStream repository temporarily to allow dnf to download packages from PostgreSQL mirror.
+  dnf:
+    name:
+      - postgresql12-server
+      - postgresql12
+    disablerepo: AppStream
+    state: present
+
+- name: Initialize the database before using it for the first time.
+  shell: 
+    cmd: /usr/pgsql-12/bin/postgresql-12-setup initdb
+
+- name: Start PostgreSQL service.
+  service: name=postgresql-12 state=started enabled=yes
