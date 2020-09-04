@@ -1,6 +1,6 @@
 ---
 - name: Install PostgreSQL
-  hosts: test1
+  hosts: test
   become: yes
  
   roles:
