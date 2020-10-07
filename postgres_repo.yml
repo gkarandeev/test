@@ -1,7 +1,7 @@
 ---
 - name: Install PostgreSQL
   hosts: test
-  become: yes1
+  become: yes
  
   roles:
   - postgres_repo
